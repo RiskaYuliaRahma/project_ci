@@ -8,6 +8,9 @@ class buku extends CI_Controller {
         parent::__construct();
         $this->load->model('Buku_model');
         $this->load->model('Kategori_model');
+        if (!$this->session->userdata('login')){
+            redirect('login');
+        }
     }
 
     public function index()
@@ -83,5 +86,16 @@ class buku extends CI_Controller {
         $this->Buku_model->update($id, $data);
         redirect('buku');
     }
+
+    public function cetak_buku()
+    {
+        $this->db->select('*');
+        $this->db->from('buku');
+
+        $data['data'] = $this->db->get()->result();
+
+        $this->load->view('laporan/cetak_buku', $data);
+    }
+
 }
 ?>

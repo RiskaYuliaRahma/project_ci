@@ -8,6 +8,9 @@ class Produk extends CI_Controller {
         parent::__construct();
         $this->load->model('Produk_model');
         $this->load->model('Kategori_model');
+        if (!$this->session->userdata('login')){
+            redirect('login');
+        }
     }
 
     public function index()
